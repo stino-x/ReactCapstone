@@ -1,0 +1,58 @@
+h1 {
+  color: #000;
+}
+
+.table {
+  width: 98%;
+  border-collapse: separate;
+  margin: auto;
+}
+
+.Column-2 {
+  width: 65%;
+}
+
+.Column-3 {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.status {
+  position: relative;
+  border: 1px solid black;
+  border-radius: 2px;
+  padding: 2%;
+}
+
+.Active {
+  background-color: rgb(24, 162, 184);
+  border: none;
+  color: white;
+}
+
+.Column-4 {
+  display: table-cell;
+  vertical-align: middle;
+  position: relative;
+  min-height: 100%;
+  flex: 1;
+}
+
+.centered-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.Column-4 input {
+  position: relative;
+  width: 100%;
+  top: 50%;
+}
+
+.leave-mission {
+  color: red;
+  border: 1px solid red;
+}
