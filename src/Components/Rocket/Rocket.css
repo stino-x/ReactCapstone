@@ -1,8 +1,34 @@
-.rocket-img {
-  width: 250px;
-  height: 250px;
+* {
+  box-sizing: border-box;
 }
 
-.reserved {
-  background-color: #18a2b8 !important;
+#menu-header {
+  background-color: rgb(223, 71, 130);
+  padding: 0;
+}
+
+.contaner {
+  color: white;
+  min-width: 100%;
+  margin: 0;
+  text-align: center;
+}
+
+.contaner > :nth-child(even) {
+  min-height: 30%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  background-color: #cd4277;
+}
+
+.contaner > :nth-child(odd) {
+  min-height: 30%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  background-color: #e64986;
+}
+
+.arrow-container {
+  margin-left: 5%;
+  cursor: pointer;
 }
