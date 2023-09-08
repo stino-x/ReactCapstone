@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+}
+
+#menu-header {
+  background-color: rgb(223, 71, 130);
+  padding: 0;
+}
+
+.contaner {
+  color: white;
+  min-width: 100%;
+  margin: 0;
+  text-align: center;
+  padding: 0;
+  min-height: 99vh;
+}
+
+.contaner > :nth-child(even) {
+  min-height: 30%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  background-color: #cd4277;
+}
+
+.contaner > :nth-child(odd) {
+  min-height: 30%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  background-color: #e64986;
+}
+
+.arrow-container {
+  margin-left: 5%;
+  cursor: pointer;
+}

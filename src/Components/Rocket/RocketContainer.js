@@ -1,29 +1,54 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+/* eslint-disable react/no-array-index-key */
+import React, { useEffect, useState } from 'react';
+// import { useDispatch } from 'react-redux';
 import { Container } from 'react-bootstrap';
-import RocketList from './RocketList';
-import { fetchRocketsData } from '../../redux/rocket/rocketSlice';
-import './Rocket.css';
+// import RocketList from './RocketList'
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+// import { fetchRocketsData } from '../../redux/rocket/rocketSlice';
+// import { UserContext } from '../ContextProvider/UserContextProvider';
+import Bigscreen from './Bigscreen';
+import Smallerscreen from './Smallerscreen';
 
-let saveReservedAPI = false;
+// let saveReservedAPI = false;
 
 const RocketContainer = () => {
-  const rockets = useSelector((state) => state.rocket);
+  // const rockets = useSelector((state) => state.rocket);
+  // const { dummyArray } = useContext(UserContext);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   useEffect(() => {
-    if (saveReservedAPI === false) {
-      saveReservedAPI = true;
-      dispatch(fetchRocketsData());
+    function handleResize() {
+      setWindowWidth(window.innerWidth);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    window.addEventListener('resize', handleResize);
+
+    // Remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   return (
-    <Container>
-      <RocketList rockets={rockets} />
-    </Container>
+    <>
+      <div id="selected">
+        <div>Country map</div>
+        <div><span>Country Name</span></div>
+      </div>
+      <Container className="contaner">
+        <Row id="menu-header">
+          <Col>Menu header</Col>
+        </Row>
+        {windowWidth < 768 ? (
+          <Smallerscreen />
+        ) : (
+          <Bigscreen />
+        )}
+      </Container>
+    </>
   );
 };
 

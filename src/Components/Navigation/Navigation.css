@@ -9,3 +9,16 @@
 .link {
   text-decoration: none;
 }
+
+.nav-color {
+  background-color: rgb(223, 51, 117);
+}
+
+.search-icon-conatiner {
+  margin-left: 3%;
+}
+
+.search-icon {
+  font-size: 35px;
+  color: white;
+}

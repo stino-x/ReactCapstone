@@ -1,0 +1,76 @@
+#cell {
+  min-height: 100%;
+  position: relative;
+}
+
+#cell-grid {
+  display: grid;
+  position: relative;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  min-height: 80vh;
+}
+
+#cell-grid > :nth-child(even) {
+  background-color: #cd4277;
+}
+
+.country-name {
+  min-height: 40%;
+  min-width: 100%;
+  text-align: right;
+}
+
+.country-name span {
+  position: relative;
+  top: 10%;
+  right: 5%;
+}
+
+#selected {
+  display: flex;
+  min-width: 100%;
+  min-height: 40vh;
+}
+
+#selected > :nth-child(1) {
+  background-color: #f94e90;
+  flex: 0.5;
+}
+
+#selected > :nth-child(2) {
+  color: white;
+  position: relative;
+  background-color: #f94e90;
+  flex: 0.5;
+  text-align: center;
+}
+
+#selected > :nth-child(2) span {
+  top: 65%;
+  right: -25%;
+  position: relative;
+}
+
+/* #cell {
+  padding-top: 30%;
+  padding-bottom: 30%;
+} */
+
+.map {
+  min-height: 60%;
+  min-width: 100%;
+}
+
+.arrow {
+  position: relative;
+  top: 10%;
+  right: -45%;
+}
+
+#cell-grid > :nth-child(odd) {
+  background-color: #e64986;
+}
