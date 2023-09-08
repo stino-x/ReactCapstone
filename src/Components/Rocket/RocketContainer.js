@@ -1,50 +1,52 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useEffect, useContext } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+// import { useDispatch } from 'react-redux';
 import { Container } from 'react-bootstrap';
-import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 // import RocketList from './RocketList'
-import './Rocket.css';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { fetchRocketsData } from '../../redux/rocket/rocketSlice';
-import { UserContext } from '../ContextProvider/UserContextProvider';
+// import { fetchRocketsData } from '../../redux/rocket/rocketSlice';
+// import { UserContext } from '../ContextProvider/UserContextProvider';
+import Bigscreen from './Bigscreen';
+import Smallerscreen from './Smallerscreen';
 
-let saveReservedAPI = false;
+// let saveReservedAPI = false;
 
 const RocketContainer = () => {
   // const rockets = useSelector((state) => state.rocket);
-  const { dummyArray } = useContext(UserContext);
+  // const { dummyArray } = useContext(UserContext);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   useEffect(() => {
-    if (saveReservedAPI === false) {
-      saveReservedAPI = true;
-      dispatch(fetchRocketsData());
+    function handleResize() {
+      setWindowWidth(window.innerWidth);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    window.addEventListener('resize', handleResize);
+
+    // Remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   return (
     <>
-      <div>selected continent</div>
+      <div id="selected">
+        <div>Country map</div>
+        <div><span>Country Name</span></div>
+      </div>
       <Container className="contaner">
         <Row id="menu-header">
           <Col>Menu header</Col>
         </Row>
-        {dummyArray.map((item, position) => (
-          <Row className="row-1" md={4} key={position}>
-            <Col>Country</Col>
-            <Col md={6} sm={6} />
-            <Col>
-              3 of 3
-              <span className="arrow-container">
-                <BsFillArrowRightCircleFill />
-              </span>
-            </Col>
-          </Row>
-        ))}
+        {windowWidth < 768 ? (
+          <Smallerscreen />
+        ) : (
+          <Bigscreen />
+        )}
       </Container>
     </>
   );
