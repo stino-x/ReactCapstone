@@ -5,7 +5,7 @@ import Navigation from './Components/Navigation/Navigation';
 import Container from './Components/PageBody/Container';
 import MyProfile from './Components/Profile/myProfile';
 import { UserContextProvider } from './Components/ContextProvider/UserContextProvider';
-import Cities from './Components/Mission/Cities';
+import Cities from './Components/Cities/Cities';
 
 function App() {
   return (

@@ -3,7 +3,9 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import './Navigation.css';
 // import { NavLink } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { NavDropdown } from 'react-bootstrap';
+import { FaArrowLeft } from 'react-icons/fa6';
 import { BsSearch } from 'react-icons/bs';
 import { useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux';
@@ -13,6 +15,12 @@ import { fetchCurrentLocation, fetchCurrentLocationImage } from '../../redux/Cur
 // import Logo from './planet.png';
 
 function Navigation() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const goBack = () => {
+    navigate(-1); // Go back to the previous page
+  };
   const {
     selectedContinent,
     handleContinentChange,
@@ -28,6 +36,20 @@ function Navigation() {
   return (
     <Navbar expand="lg" className="nav-color">
       <Container>
+        {location.pathname !== '/' && (
+        <div
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              goBack();
+            }
+          }}
+          onClick={goBack}
+        >
+          <FaArrowLeft />
+        </div>
+        )}
         <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
