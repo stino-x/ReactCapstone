@@ -1,9 +1,9 @@
-import './Mission.css';
+import './Cities.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-const Landingpage = () => {
+const Cities = () => {
   <Container>
     <Row md={4}>
       <Col>1 of 3</Col>
@@ -13,4 +13,4 @@ const Landingpage = () => {
   </Container>;
 };
 
-export default Landingpage;
+export default Cities;

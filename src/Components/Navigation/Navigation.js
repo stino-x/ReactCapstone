@@ -5,14 +5,25 @@ import './Navigation.css';
 // import { NavLink } from 'react-router-dom';
 import { NavDropdown } from 'react-bootstrap';
 import { BsSearch } from 'react-icons/bs';
+import { useEffect, useContext } from 'react';
+import { useDispatch } from 'react-redux';
+import { UserContext } from '../ContextProvider/UserContextProvider';
+import { fetchCurrentLocation, fetchCurrentLocationImage } from '../../redux/Current-Location/CurrentLocation';
+
 // import Logo from './planet.png';
 
 function Navigation() {
-  // const activeLink = ({ isActive }) => ({
-  //   color: isActive ? '#0d6efd' : '',
-  //   paddingBottom: isActive ? '0.25rem' : '',
-  //   borderBottom: isActive ? '3px solid #0d6efd' : '',
-  // });
+  const {
+    selectedContinent,
+    handleContinentChange,
+  } = useContext(UserContext);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCurrentLocation(selectedContinent));
+    dispatch(fetchCurrentLocationImage(selectedContinent));
+  }, [dispatch, selectedContinent]);
 
   return (
     <Navbar expand="lg" className="nav-color">
@@ -36,7 +47,17 @@ function Navigation() {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
-        <input placeholder="0064218464f0c370e0b3da8e5e197bf8" />
+        {/* <input placeholder="0064218464f0c370e0b3da8e5e197bf8" /> */}
+        <select id="continentSelect" onChange={handleContinentChange}>
+          <option value="">0064218464f0c370e0b3da8e5e197bf8</option>
+          <option value="Africa">Africa</option>
+          <option value="Antarctica">Antarctica</option>
+          <option value="Asia">Asia</option>
+          <option value="Europe">Europe</option>
+          <option value="North-America">North-America</option>
+          <option value="South-America">South-America</option>
+          <option value="Oceania">Australia</option>
+        </select>
         <span className="search-icon-conatiner">
           <BsSearch className="search-icon" />
         </span>

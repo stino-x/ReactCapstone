@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import rocketReducer from './rocket/rocketSlice';
-import missionsSlicereducer from './mission/missionSlice';
+import CurrentLocationReducer from './Current-Location/CurrentLocation';
+import Countriesreducer from './Countries/Countries';
 
 export default configureStore({
   reducer: {
-    rocket: rocketReducer,
-    missions: missionsSlicereducer,
+    CurrentLocation: CurrentLocationReducer,
+    Countries: Countriesreducer,
   },
 });
