@@ -2,7 +2,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navigation from './Components/Navigation/Navigation';
-import Container from './Components/PageBody/Container';
+import Container from './Components/Landing/Container';
 import MyProfile from './Components/Profile/myProfile';
 import { UserContextProvider } from './Components/ContextProvider/UserContextProvider';
 import Cities from './Components/Cities/Cities';

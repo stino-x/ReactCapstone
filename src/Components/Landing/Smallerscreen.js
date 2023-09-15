@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 // import { filterCountries } from '../../redux/Current-Location/CurrentLocation';
 import { UserContext } from '../ContextProvider/UserContextProvider';
+// import { fetchCountries } from '../../redux/Countries/Countries';
 
 export default function Smallerscreen() {
   const countries = useSelector((state) => state.CurrentLocation.countries);
@@ -13,18 +14,22 @@ export default function Smallerscreen() {
   // const dispatch = useDispatch();
   const {
     inputCountry,
+    // setcountrytodisplayinsecondpage,
+    // countrytodisplayinsecondpage,
+    setcontryCode,
+    contryCode,
     // changevalueofCountry,
     // selectedContinent,
   } = useContext(UserContext);
-
   // useEffect(() => {
-  //   // Dispatch the filterCountries action when inputCountry changes
-  //   dispatch(filterCountries(inputCountry));
-  // }, [dispatch, inputCountry]);
+  //   if (inputCountry !== '') {
+  //     console.log('Content changed:', content);
+  //   }
+  // }, [content]);
+
   if (countries === undefined) {
     return null; // You can return a loading indicator or handle this as needed
   }
-
   return (
     <div id="cell-grid">
       {inputCountry !== '' ? (
@@ -35,7 +40,18 @@ export default function Smallerscreen() {
           }`;
 
           return (
-            <Link to="/cities" key={position}>
+            <Link
+              to="/cities"
+              onClick={() => {
+                // setcountrytodisplayinsecondpage(item.countryname);
+                setcontryCode(item.countrycode);
+                localStorage.setItem('countrytodisplayinsecondpage', JSON.stringify({ countryname: item.countryname, countrycode: item.countrycode }));
+                // setcontryCode(item.countrycode);
+                // console.log('this is your contry code', contryCode);
+                // dispatch(fetchCountries(contryCode));
+              }}
+              key={position}
+            >
               <div id="cell" className={classNames} key={position}>
                 <div className="map">
                   <BsFillArrowRightCircleFill className="arrow" />
@@ -59,7 +75,18 @@ export default function Smallerscreen() {
           }`;
 
           return (
-            <Link to="/cities" key={position}>
+            <Link
+              to="/cities"
+              onClick={() => {
+                // setcountrytodisplayinsecondpage(item.countryname);
+                setcontryCode(item.countrycode);
+                localStorage.setItem('countrytodisplayinsecondpage', JSON.stringify({ countryname: item.countryname, countrycode: item.countrycode }));
+                // setcontryCode(item.countrycode);
+                console.log('this is your contry code', contryCode);
+                // dispatch(fetchCountries(contryCode));
+              }}
+              key={position}
+            >
               <div id="cell" className={classNames} key={position}>
                 <div className="map">
                   <BsFillArrowRightCircleFill className="arrow" />

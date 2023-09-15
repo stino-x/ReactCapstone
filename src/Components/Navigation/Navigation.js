@@ -11,12 +11,14 @@ import { useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { UserContext } from '../ContextProvider/UserContextProvider';
 import { fetchCurrentLocation, fetchCurrentLocationImage } from '../../redux/Current-Location/CurrentLocation';
+import { fetchCountries } from '../../redux/Countries/Countries';
 
 // import Logo from './planet.png';
 
 function Navigation() {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const goBack = () => {
     navigate(-1); // Go back to the previous page
@@ -24,9 +26,13 @@ function Navigation() {
   const {
     selectedContinent,
     handleContinentChange,
+    // contryCode,
   } = useContext(UserContext);
-
-  const dispatch = useDispatch();
+  if (location.pathname === '/cities') {
+    const storedData = localStorage.getItem('countrytodisplayinsecondpage');
+    const parsedData = JSON.parse(storedData);
+    dispatch(fetchCountries(parsedData.countrycode));
+  }
 
   useEffect(() => {
     dispatch(fetchCurrentLocation(selectedContinent));
@@ -70,19 +76,23 @@ function Navigation() {
           </Nav>
         </Navbar.Collapse>
         {/* <input placeholder="0064218464f0c370e0b3da8e5e197bf8" /> */}
-        <select id="continentSelect" onChange={handleContinentChange}>
-          <option value="">0064218464f0c370e0b3da8e5e197bf8</option>
-          <option value="Africa">Africa</option>
-          <option value="Antarctica">Antarctica</option>
-          <option value="Asia">Asia</option>
-          <option value="Europe">Europe</option>
-          <option value="North-America">North-America</option>
-          <option value="South-America">South-America</option>
-          <option value="Oceania">Australia</option>
-        </select>
-        <span className="search-icon-conatiner">
-          <BsSearch className="search-icon" />
-        </span>
+        {location.pathname === '/' && (
+          <>
+            <select id="continentSelect" onChange={handleContinentChange}>
+              <option value="">0064218464f0c370e0b3da8e5e197bf8</option>
+              <option value="Africa">Africa</option>
+              <option value="Antarctica">Antarctica</option>
+              <option value="Asia">Asia</option>
+              <option value="Europe">Europe</option>
+              <option value="North-America">North-America</option>
+              <option value="South-America">South-America</option>
+              <option value="Oceania">Australia</option>
+            </select>
+            <span className="search-icon-conatiner">
+              <BsSearch className="search-icon" />
+            </span>
+          </>
+        )}
       </Container>
     </Navbar>
   );

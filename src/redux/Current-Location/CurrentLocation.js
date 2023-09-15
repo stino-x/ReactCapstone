@@ -87,6 +87,7 @@ export const fetchCurrentLocationCountries = createAsyncThunk(
     const countryDataPromises = countriesInContinent.map((country) => ({
       countryname: country.name.common,
       countryflag: country.flags.svg,
+      countrycode: country.cca2,
     }));
 
     return countryDataPromises;

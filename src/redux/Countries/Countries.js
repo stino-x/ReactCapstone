@@ -1,42 +1,56 @@
+/* eslint-disable max-len */
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { useSharedContextforSlice } from '../../Components/ContextProvider/UserContextProvider';
+// import axios from 'axios';
 
-export const fetchCountries = createAsyncThunk('fetchCountries', async () => {
-  const { inputCountry } = useSharedContextforSlice();
-  const options = {
-    method: 'GET',
-    url: `https://geography4.p.rapidapi.com/apis/geography/v1/country/name/${inputCountry}`,
-    params: {
-      limit: '10',
-      sortBy: 'name',
-      sortOrder: 'asc',
-    },
-    headers: {
-      'X-RapidAPI-Key': '0b6eebabf3mshc5f85d597b457cfp1ab958jsn811499bb29c4',
-      'X-RapidAPI-Host': 'geography4.p.rapidapi.com',
-    },
-  };
-  const response = await axios.request(options);
-  return response.data;
+export const fetchCountries = createAsyncThunk('fetchCountries', async (contryCode) => {
+  const username = 'austin214'; // Replace with your Geonames username
+  const url = `http://api.geonames.org/searchJSON?country=${contryCode}&username=${username}`;
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  // console.log('I HAVE BEEN CALLED', contryCode);
+
+  const data = await response.json();
+  const datatarray = data.geonames;
+  // console.log('I HAVE BEEN CALLED', data.geonames);
+  // const cityInfo = datatarray
+  //   .map((city) => ({
+  //     cityname: city.toponymName,
+  //     latitude: city.lat,
+  //     longitude: city.lng,
+  //     ISOcode2: city.adminCodes1.ISO3166_2,
+  //     population: city.population,
+  //   }));
+  // console.log('I HAVE BEEN CALLED', cityInfo);
+  return datatarray;
 });
 
 const initialState = {
-  missions: [],
+  countries: [],
+  filteredCountries: [],
 };
 
 const Countries = createSlice({
-  name: 'missions',
+  name: 'countries',
   initialState,
-  reducers: {},
+  reducers: {
+    filterCities: (state, action) => {
+      const { keyword } = action.payload; // Assuming you pass a payload with a keyword
+      state.filteredCountries = state.countries.filter((country) => country.cityname.toLowerCase().includes(keyword.toLowerCase()));
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchCountries.fulfilled, (state, action) => ({
       ...state,
-      missions: action.payload,
+      countries: action.payload,
     }));
   },
 });
+
+// 97d191eae23478636455005959f12bf5  weather api key
 
 // const apiKey = '294b967cd6b04078ac7ded19316b344b';
 // const apiUrl = 'https://api.ipgeolocation.io/ipgeo';
@@ -57,6 +71,6 @@ const Countries = createSlice({
 // };
 
 // export default locationInfo;
+export const { filterCities } = Countries.actions;
 
 export default Countries.reducer;
-// export const { changeStatus } = Countries.actions;
