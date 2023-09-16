@@ -19,6 +19,7 @@ export const fetchCountries = createAsyncThunk('fetchCountries', async (contryCo
 const initialState = {
   countries: [],
   filteredCountries: [],
+  weather: [],
 };
 
 const Countries = createSlice({

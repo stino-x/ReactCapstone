@@ -1,58 +1,102 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import './Weather.css';
 import { useSelector } from 'react-redux';
-import { UserContext } from '../ContextProvider/UserContextProvider';
 
-export default function Weather() {
+export default function WeatherComponent() {
+  // Access the Weather data from the Redux store
   const weatherDetails = useSelector((state) => state.Weather.Weather);
-  const {
-    weathercountry,
-    // setweathercountry,
-    // contryCode,
-  } = useContext(UserContext);
+  console.log('Weather details:', weatherDetails);
 
-  // Map weather details to JSX elements
-  const weatherElements = weatherDetails.map((weather) => (
-    <>
-      {/* Render weather details here */}
+  if (!weatherDetails) {
+    // Handle the case where weatherDetails is not available yet
+    return <div>Loading weather data...</div>;
+  }
+
+  // Destructure relevant data from the response
+  const { location, current } = weatherDetails;
+  const { name, localtime } = location;
+  const {
+    country,
+    temp_c,
+    temp_f,
+    condition,
+    wind_kph,
+    wind_dir,
+    pressure_mb,
+    humidity,
+    cloud,
+    feelslike_c,
+    vis_km,
+    uv,
+  } = current;
+
+  return (
+    <div className="single-element">
+      <h2>
+        Weather Details for
+        <br />
+        {name}
+        ,
+        {country}
+      </h2>
       <div className="weather-icon">
-        <img src={weather.current.condition.icon} alt="weather" />
+        <img src={`https:${condition.icon}`} alt="weather" />
       </div>
       <div>
         <p>
           Temperature:
-          {weather.temp_c}
-          Celsius
+          {temp_c}
+          °C (
+          {temp_f}
+          °F)
         </p>
         <p>
           Condition:
-          {weather.current.condition.text}
+          {condition.text}
+        </p>
+        <p>
+          Wind Speed:
+          {wind_kph}
+          {' '}
+          K/H, Wind Direction:
+          {wind_dir}
+        </p>
+        <p>
+          Pressure:
+          {pressure_mb}
+          {' '}
+          mb
         </p>
         <p>
           Humidity:
-          {weather.current.humidity}
+          {humidity}
+          %
         </p>
         <p>
-          Wind-direction:
-          {weather.current.wind_dir}
+          Cloud Cover:
+          {cloud}
+          %
         </p>
         <p>
-          Wind-Speed:
-          {weather.wind_kph}
-          K/H
+          Feels Like:
+          {feelslike_c}
+          °C
+        </p>
+        <p>
+          Visibility:
+          {vis_km}
+          {' '}
+          km
+        </p>
+        <p>
+          UV Index:
+          {uv}
+        </p>
+        <p>
+          Local Time:
+          {localtime}
         </p>
       </div>
-      {/* Add more weather details as needed */}
-    </>
-  ));
-
-  return (
-    <div className="weather-container">
-      <h2>
-        Weather Details for
-        {weathercountry}
-      </h2>
-      {weatherElements}
     </div>
   );
 }

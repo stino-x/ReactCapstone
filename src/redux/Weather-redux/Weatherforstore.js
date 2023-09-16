@@ -8,12 +8,12 @@ export const fetchweather = createAsyncThunk('fetchweather', async (contryCode) 
   const response = await axios.get(
     `http://api.weatherapi.com/v1/current.json?key=${APIkey}&q=${contryCode}&aqi=yes`,
   );
-
+  console.log('weather stuff', response.data);
   return response.data;
 });
 
 const initialState = {
-  Weather: [],
+  Weather: null,
 };
 
 const Weather = createSlice({
@@ -22,10 +22,9 @@ const Weather = createSlice({
   reducers: {
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchweather.fulfilled, (state, action) => ({
-      ...state,
-      Weather: action.payload,
-    }));
+    builder.addCase(fetchweather.fulfilled, (state, action) => {
+      state.Weather = action.payload;
+    });
   },
 });
 

@@ -27,20 +27,34 @@ function Navigation() {
   const {
     selectedContinent,
     handleContinentChange,
-    setweathercountry,
+    setcityInput,
+    setCountryValue,
+    // setweathercountry,
     // contryCode,
   } = useContext(UserContext);
-  if (location.pathname === '/cities') {
-    const storedData = localStorage.getItem('countrytodisplayinsecondpage');
-    const parsedData = JSON.parse(storedData);
-    dispatch(fetchCountries(parsedData.countrycode));
-  }
-  if (location.pathname === '/weather') {
-    const storedData = localStorage.getItem('countrytoshowweather');
-    const parsedData = JSON.parse(storedData);
-    setweathercountry(parsedData.weatherlocation);
-    dispatch(fetchweather(parsedData.countrycode));
-  }
+  useEffect(() => {
+    if (location.pathname === '/cities') {
+      const storedData = localStorage.getItem('countrytodisplayinsecondpage');
+      const parsedData = JSON.parse(storedData);
+      dispatch(fetchCountries(parsedData.countrycode));
+      setCountryValue('');
+    }
+
+    if (location.pathname === '/weather') {
+      const storedData = localStorage.getItem('countrytoshowweather');
+      const parsedData = JSON.parse(storedData);
+      dispatch(fetchweather(parsedData.weatherlocation));
+      setCountryValue('');
+      setcityInput('');
+    }
+
+    if (location.pathname === '/') {
+      setcityInput('');
+    }
+
+    dispatch(fetchCurrentLocation(selectedContinent));
+    dispatch(fetchCurrentLocationImage(selectedContinent));
+  }, [dispatch, location.pathname, selectedContinent, setCountryValue, setcityInput]);
 
   useEffect(() => {
     dispatch(fetchCurrentLocation(selectedContinent));
