@@ -10,7 +10,7 @@ import { BsSearch } from 'react-icons/bs';
 import { useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { UserContext } from '../ContextProvider/UserContextProvider';
-import { fetchCurrentLocation, fetchCurrentLocationImage } from '../../redux/Current-Location/CurrentLocation';
+import { fetchCurrentLocation } from '../../redux/Current-Location/CurrentLocation';
 import { fetchCountries } from '../../redux/Countries/Countries';
 import { fetchweather } from '../../redux/Weather-redux/Weatherforstore';
 
@@ -53,12 +53,12 @@ function Navigation() {
     }
 
     dispatch(fetchCurrentLocation(selectedContinent));
-    dispatch(fetchCurrentLocationImage(selectedContinent));
+    // dispatch(fetchCurrentLocationImage(selectedContinent));
   }, [dispatch, location.pathname, selectedContinent, setCountryValue, setcityInput]);
 
   useEffect(() => {
     dispatch(fetchCurrentLocation(selectedContinent));
-    dispatch(fetchCurrentLocationImage(selectedContinent));
+    // dispatch(fetchCurrentLocationImage(selectedContinent));
   }, [dispatch, selectedContinent]);
 
   return (

@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 const apiKey = '294b967cd6b04078ac7ded19316b344b';
 const apiUrl = 'https://api.ipgeolocation.io/ipgeo';
-const mapboxapikey = 'pk.eyJ1IjoiYXVzdGluMjE0IiwiYSI6ImNsbWF6ZnFwcTBzMmMzdHRmZGx0ZzBlNW0ifQ.zuxjFgJlzWzwki9X4fHWMA';
+// const mapboxapikey = 'pk.eyJ1IjoiYXVzdGluMjE0IiwiYSI6ImNsbWF6ZnFwcTBzMmMzdHRmZGx0ZzBlNW0ifQ.zuxjFgJlzWzwki9X4fHWMA';
 
 // Create an async thunk to fetch the current location
 // Create an async thunk to fetch the current location
@@ -95,46 +95,46 @@ export const fetchCurrentLocationCountries = createAsyncThunk(
 );
 
 // Function to convert a Blob to a base64 string
-const blobToBase64 = async (blob) => new Promise((resolve) => {
-  const reader = new FileReader();
-  reader.onload = () => {
-    const base64String = reader.result.split(',')[1];
-    resolve(base64String);
-  };
-  reader.readAsDataURL(blob);
-});
+// const blobToBase64 = async (blob) => new Promise((resolve) => {
+//   const reader = new FileReader();
+//   reader.onload = () => {
+//     const base64String = reader.result.split(',')[1];
+//     resolve(base64String);
+//   };
+//   reader.readAsDataURL(blob);
+// });
 
-export const fetchCurrentLocationImage = createAsyncThunk(
-  'rockets/fetchCurrentLocationImage',
-  async (selectedcontinent) => {
-    if (!selectedcontinent) {
-      const requestUrl = `${apiUrl}?apiKey=${apiKey}`;
-      const response = await fetch(requestUrl);
-      const data = await response.json();
+// export const fetchCurrentLocationImage = createAsyncThunk(
+//   'rockets/fetchCurrentLocationImage',
+//   async (selectedcontinent) => {
+//     if (!selectedcontinent) {
+//       const requestUrl = `${apiUrl}?apiKey=${apiKey}`;
+//       const response = await fetch(requestUrl);
+//       const data = await response.json();
 
-      if (!response.ok) {
-        // Handle the error if the API request fails
-        throw new Error('Failed to fetch current location data');
-      }
+//       if (!response.ok) {
+//         // Handle the error if the API request fails
+//         throw new Error('Failed to fetch current location data');
+//       }
 
-      const request2 = `https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/${data.longitude},${data.latitude},1.08,0/400x300?access_token=${mapboxapikey}`;
-      const response2 = await fetch(request2);
+//       const request2 = `https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/${data.longitude},${data.latitude},1.08,0/400x300?access_token=${mapboxapikey}`;
+//       const response2 = await fetch(request2);
 
-      if (!response2.ok) {
-        // Handle the error if the second API request fails
-        throw new Error('Failed to fetch map image');
-      }
+//       if (!response2.ok) {
+//         // Handle the error if the second API request fails
+//         throw new Error('Failed to fetch map image');
+//       }
 
-      const imageBlob = await response2.blob(); // Assuming the response contains image data
-      const imageBase64 = await blobToBase64(imageBlob); // Convert Blob to base64
+//       const imageBlob = await response2.blob(); // Assuming the response contains image data
+//       const imageBase64 = await blobToBase64(imageBlob); // Convert Blob to base64
 
-      return imageBase64; // Return the base64 image string
-    }
+//       return imageBase64; // Return the base64 image string
+//     }
 
-    // Return a default value when selectedcontinent is falsy
-    return null;
-  },
-);
+//     // Return a default value when selectedcontinent is falsy
+//     return null;
+//   },
+// );
 
 const initialState = [
   {
@@ -160,10 +160,10 @@ export const CurrentLocationSlice = createSlice({
       ...state,
       continent: action.payload,
     }));
-    builder.addCase(fetchCurrentLocationImage.fulfilled, (state, action) => ({
-      ...state,
-      image: action.payload,
-    }));
+    // builder.addCase(fetchCurrentLocationImage.fulfilled, (state, action) => ({
+    //   ...state,
+    //   image: action.payload,
+    // }));
     builder.addCase(fetchCurrentLocationCountries.fulfilled, (state, action) => ({
       ...state,
       countries: action.payload,
