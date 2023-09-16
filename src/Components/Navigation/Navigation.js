@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { UserContext } from '../ContextProvider/UserContextProvider';
 import { fetchCurrentLocation, fetchCurrentLocationImage } from '../../redux/Current-Location/CurrentLocation';
 import { fetchCountries } from '../../redux/Countries/Countries';
+import { fetchweather } from '../../redux/Weather-redux/Weatherforstore';
 
 // import Logo from './planet.png';
 
@@ -26,12 +27,19 @@ function Navigation() {
   const {
     selectedContinent,
     handleContinentChange,
+    setweathercountry,
     // contryCode,
   } = useContext(UserContext);
   if (location.pathname === '/cities') {
     const storedData = localStorage.getItem('countrytodisplayinsecondpage');
     const parsedData = JSON.parse(storedData);
     dispatch(fetchCountries(parsedData.countrycode));
+  }
+  if (location.pathname === '/weather') {
+    const storedData = localStorage.getItem('countrytoshowweather');
+    const parsedData = JSON.parse(storedData);
+    setweathercountry(parsedData.weatherlocation);
+    dispatch(fetchweather(parsedData.countrycode));
   }
 
   useEffect(() => {

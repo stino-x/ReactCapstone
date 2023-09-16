@@ -1,31 +1,19 @@
 /* eslint-disable max-len */
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-// import axios from 'axios';
+import axios from 'axios';
 
 export const fetchCountries = createAsyncThunk('fetchCountries', async (contryCode) => {
-  const username = 'austin214'; // Replace with your Geonames username
-  const url = `http://api.geonames.org/searchJSON?country=${contryCode}&username=${username}`;
-  const response = await fetch(url);
+  const config = {
+    method: 'get',
+    url: `https://api.countrystatecity.in/v1/countries/${contryCode}/cities`,
+    headers: {
+      'X-CSCAPI-KEY': 'VWlxRkNSNUlHYW01bVh6RDBVZEZiRlBibnJld0NPTmRDWlMzUU1YTA==',
+    },
+  };
 
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  // console.log('I HAVE BEEN CALLED', contryCode);
-
-  const data = await response.json();
-  const datatarray = data.geonames;
-  // console.log('I HAVE BEEN CALLED', data.geonames);
-  // const cityInfo = datatarray
-  //   .map((city) => ({
-  //     cityname: city.toponymName,
-  //     latitude: city.lat,
-  //     longitude: city.lng,
-  //     ISOcode2: city.adminCodes1.ISO3166_2,
-  //     population: city.population,
-  //   }));
-  // console.log('I HAVE BEEN CALLED', cityInfo);
-  return datatarray;
+  const response = await axios(config);
+  return response.data;
 });
 
 const initialState = {
@@ -39,7 +27,7 @@ const Countries = createSlice({
   reducers: {
     filterCities: (state, action) => {
       const { keyword } = action.payload; // Assuming you pass a payload with a keyword
-      state.filteredCountries = state.countries.filter((country) => country.cityname.toLowerCase().includes(keyword.toLowerCase()));
+      state.filteredCountries = state.countries.filter((country) => country.name.toLowerCase().includes(keyword.toLowerCase()));
     },
   },
   extraReducers: (builder) => {

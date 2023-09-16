@@ -13,6 +13,8 @@ export default function Smallscreencomp() {
   const {
     cityInput,
     // contryCode,
+    // weathercountry,
+    setweathercountry,
     setcontryCode,
     setcountrytodisplayinsecondpage,
     // setcityInput,
@@ -44,8 +46,12 @@ export default function Smallscreencomp() {
 
           return (
             <Link
-              to="/myProfile"
-              key={position}
+              to="/weather"
+              key={item.id}
+              onClick={() => {
+                setweathercountry(item.name);
+                localStorage.setItem('countrytoshowweather', JSON.stringify({ weatherlocation: item.name }));
+              }}
             >
               <div id="cell" className={classNames} key={position}>
                 <div className="map">
@@ -53,7 +59,7 @@ export default function Smallscreencomp() {
                 </div>
                 <div className="flag" />
                 <div className="country-name">
-                  <span>{item.toponymName}</span>
+                  <span>{item.name}</span>
                 </div>
               </div>
             </Link>
@@ -69,16 +75,19 @@ export default function Smallscreencomp() {
 
           return (
             <Link
-              to="/myProfile"
-              key={position}
+              to="/weather"
+              key={item.id}
+              onClick={() => {
+                setweathercountry(item.name);
+                localStorage.setItem('countrytoshowweather', JSON.stringify({ weatherlocation: item.name }));
+              }}
             >
               <div id="cell" className={classNames} key={position}>
                 <div className="map">
                   <BsFillArrowRightCircleFill className="arrow" />
                 </div>
-                <div className="flag" />
                 <div className="country-name">
-                  <span>{item.toponymName}</span>
+                  <span>{item.name}</span>
                 </div>
               </div>
             </Link>

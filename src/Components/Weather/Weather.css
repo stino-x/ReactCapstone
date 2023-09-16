@@ -1,0 +1,7 @@
+.single-element {
+  display: grid;
+  grid-template-rows: auto min-content auto;
+  grid-template-columns: 1fr;
+  min-height: 99vh;
+  background-color: #f94e90;
+}

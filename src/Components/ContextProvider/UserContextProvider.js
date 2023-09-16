@@ -15,6 +15,7 @@ const UserContextProvider = ({ children }) => {
   const [cityInput, setcityInput] = useState('');
   const [contryCode, setcontryCode] = useState('');
   const [countrytodisplayinsecondpage, setcountrytodisplayinsecondpage] = useState('');
+  const [weathercountry, setweathercountry] = useState('');
 
   // Handler function to update the selected continent when an option is chosen
   const handleContinentChange = (event) => {
@@ -44,6 +45,8 @@ const UserContextProvider = ({ children }) => {
     handleContinentChange,
     countrytodisplayinsecondpage,
     setcountrytodisplayinsecondpage,
+    weathercountry,
+    setweathercountry,
     continents: [
       'Africa',
       'Antarctica',

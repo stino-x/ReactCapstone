@@ -3,7 +3,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navigation from './Components/Navigation/Navigation';
 import Container from './Components/Landing/Container';
-import MyProfile from './Components/Profile/myProfile';
+import Weather from './Components/Weather/Weather';
 import { UserContextProvider } from './Components/ContextProvider/UserContextProvider';
 import Cities from './Components/Cities/Cities';
 
@@ -15,7 +15,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Container />} />
           <Route path="/cities" element={<Cities />} />
-          <Route path="/myProfile" element={<MyProfile />} />
+          <Route path="/weather" element={<Weather />} />
         </Routes>
       </>
     </UserContextProvider>
